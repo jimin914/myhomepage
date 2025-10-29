@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 인터랙티브 관심사 포트폴리오</title>
+    <!-- Tailwind CSS CDN 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Inter 폰트 설정 (Tailwind 기본 폰트) */
+        body { font-family: 'Inter', sans-serif; }
+
+        /* 모달이 나타날 때 부드러운 애니메이션 효과 추가 */
+        .modal {
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+        .modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal-content-container {
+            transition: transform 0.3s ease-out;
+        }
+        .modal.hidden .modal-content-container {
+            transform: translateY(-50px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Hero Section -->
+    <header class="bg-indigo-600 shadow-lg">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl font-extrabold text-white mb-3">
+                나의 관심사 아카이브 ✨
+            </h1>
+            <p class="text-xl text-indigo-200">
+                제가 열정을 쏟고 배우고 있는 분야들을 소개합니다.
+            </p>
+        </div>
+    </header>
+
+    <!-- Interests Grid Section -->
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div id="interests-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <!-- 관심사 카드 1: 코딩 -->
+            <div class="interest-card bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] cursor-pointer" 
+                 data-interest="coding">
+                <div class="text-3xl mb-3 text-indigo-500">💻</div>
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">웹 개발 & 코딩</h2>
+                <p class="text-gray-600 mb-4">HTML, Tailwind CSS, JavaScript를 사용해 반응형 웹사이트를 구현하는 것에 몰두하고 있습니다.</p>
+                <button class="detail-button w-full bg-indigo-500 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition duration-150">
+                    상세 정보 보기
+                </button>
+            </div>
+
+            <!-- 관심사 카드 2: 먹방 -->
+            <div class="interest-card bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] cursor-pointer"
+                 data-interest="reading">
+                <div class="text-3xl mb-3 text-green-500">📚</div>
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">SF 및 인문학 독서</h2>
+                <p class="text-gray-600 mb-4">새로운 관점과 지식을 얻기 위해 다양한 분야의 책을 읽고 기록하는 습관을 가지고 있습니다.</p>
+                <button class="detail-button w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-150">
+                    상세 정보 보기
+                </button>
+            </div>
+
+            <!-- 관심사 카드 3: 여행 -->
+            <div class="interest-card bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] cursor-pointer"
+                 data-interest="travel">
+                <div class="text-3xl mb-3 text-yellow-500">✈️</div>
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">해외 및 국내 여행</h2>
+                <p class="text-gray-600 mb-4">새로운 문화와 환경을 경험하며 세상을 넓히는 것을 가장 큰 즐거움으로 삼고 있습니다.</p>
+                <button class="detail-button w-full bg-yellow-500 text-white py-2 rounded-lg font-semibold hover:bg-yellow-700 transition duration-150">
+                    상세 정보 보기
+                </button>
+            </div>
+
+             <!-- 관심사 카드 4: 사진 -->
+            <div class="interest-card bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] cursor-pointer"
+                 data-interest="photography">
+                <div class="text-3xl mb-3 text-red-500">📷</div>
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">스냅 사진 촬영</h2>
+                <p class="text-gray-600 mb-4">일상의 소중한 순간들을 카메라에 담아 기록하고, 사진 편집을 통해 느낌을 극대화합니다.</p>
+                <button class="detail-button w-full bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-700 transition duration-150">
+                    상세 정보 보기
+                </button>
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            &copy; 2025 Interests Showcase. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Interactive Modal (Popup) -->
+    <div id="interest-modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-75 hidden">
+        <div class="modal-content-container bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 sm:p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h3 id="modal-title" class="text-3xl font-bold text-gray-800"></h3>
+                <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="modal-body" class="text-gray-700 space-y-4">
+                <p id="modal-text"></p>
+                <!-- 추가 정보가 여기에 삽입됩니다. -->
+            </div>
+            <div id="modal-project" class="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200 hidden">
+                <h4 class="font-semibold text-lg text-indigo-600 mb-2">주요 프로젝트/성과</h4>
+                <ul id="modal-project-list" class="list-disc list-inside text-indigo-700"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Modal Interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('interest-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const detailButtons = document.querySelectorAll('.detail-button');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const modalProject = document.getElementById('modal-project');
+            const modalProjectList = document.getElementById('modal-project-list');
+
+            // 관심사별 상세 데이터 (JSON 형식)
+            const interestDetails = {
+                coding: {
+                    title: "💻 웹 개발 & 코딩",
+                    text: "주로 **프론트엔드 개발**에 집중하고 있습니다. 특히 사용자 경험(UX)을 고려한 인터페이스 디자인에 관심이 많습니다. Tailwind CSS와 같은 유틸리티 우선 프레임워크를 사용하여 빠르고 효율적인 개발을 선호합니다.",
+                    projects: [
+                        "반응형 포트폴리오 웹사이트 제작 (이 템플릿 포함)",
+                        "바닐라 JavaScript를 활용한 미니 게임 구현",
+                        "Firebase를 사용한 간단한 Todo List 웹 앱"
+                    ]
+                },
+                reading: {
+                    title: "📚 SF 및 인문학 독서",
+                    text: "새로운 기술이 사회와 인간에게 미치는 영향을 다루는 SF 소설에서 영감을 얻습니다. 인문학 서적은 세상과 나 자신을 이해하는 데 도움을 줍니다. 매달 최소 3권 이상의 책을 완독하는 것을 목표로 합니다.",
+                    projects: [
+                        "독서 노트 블로그 운영",
+                        "월간 독서 모임 참여 및 발표",
+                        "인상 깊은 구절 디지털 아카이빙"
+                    ]
+                },
+                travel: {
+                    title: "✈️ 해외 및 국내 여행",
+                    text: "혼자 떠나는 여행을 즐기며, 특히 현지 시장과 대중교통을 이용해 그 지역의 '진짜' 모습을 경험하는 것을 중요하게 생각합니다. 여행은 저에게 최고의 창의력 원천입니다.",
+                    projects: [
+                        "유럽 5개국 배낭여행 (2024년)",
+                        "여행 경험을 담은 포토 에세이 제작",
+                        "국내 숨겨진 명소 탐방 지도 제작"
+                    ]
+                },
+                photography: {
+                    title: "📷 스냅 사진 촬영",
+                    text: "주로 필름 카메라의 색감과 빛바랜 느낌을 좋아하며, 디지털로는 스트리트 스냅과 건축물 사진을 주로 촬영합니다. 사진은 순간을 영원히 붙잡는 마법이라고 생각합니다.",
+                    projects: [
+                        "계절별 스냅 사진 전시회 참여 (소규모)",
+                        "개인 인스타그램 사진 갤러리 운영",
+                        "사진 편집 기술 (Lightroom) 심화 학습"
+                    ]
+                }
+            };
+
+            // 모달 열기 함수
+            const openModal = (interestKey) => {
+                const details = interestDetails[interestKey];
+                if (!details) return;
+
+                // 내용 업데이트
+                modalTitle.textContent = details.title;
+                modalText.innerHTML = details.text; // HTML 태그 허용 (strong 등)
+
+                // 프로젝트 목록 업데이트
+                modalProjectList.innerHTML = ''; // 기존 목록 초기화
+                if (details.projects && details.projects.length > 0) {
+                    details.projects.forEach(project => {
+                        const li = document.createElement('li');
+                        li.textContent = project;
+                        modalProjectList.appendChild(li);
+                    });
+                    modalProject.classList.remove('hidden');
+                } else {
+                    modalProject.classList.add('hidden');
+                }
+
+                // 모달 표시
+                modal.classList.remove('hidden');
+            };
+
+            // 모달 닫기 함수
+            const closeModal = () => {
+                modal.classList.add('hidden');
+            };
+
+            // 이벤트 리스너 연결: 각 카드 버튼
+            detailButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    // 버튼의 부모 요소(카드)에서 data-interest 속성을 가져옵니다.
+                    const card = event.target.closest('.interest-card');
+                    const interestKey = card.getAttribute('data-interest');
+                    openModal(interestKey);
+                });
+            });
+
+            // 이벤트 리스너 연결: 닫기 버튼
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // 이벤트 리스너 연결: 모달 외부 클릭 시 닫기
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // ESC 키 입력 시 닫기
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
